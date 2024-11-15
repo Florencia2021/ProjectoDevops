@@ -23,7 +23,7 @@ pipeline {
 		 sh '''
                     docker ps -q -f name=${DOCKER_IMAGE} && docker stop ${DOCKER_IMAGE} || true
                     docker ps -a -q -f name=${DOCKER_IMAGE} && docker rm ${DOCKER_IMAGE} || true
-                    docker run -d --name ${DOCKER_IMAGE} ${DOCKER_IMAGE}
+                    docker run -d --name ${DOCKER_IMAGE} -p 8081:8080  ${DOCKER_IMAGE}
                     '''
                 }
             }
