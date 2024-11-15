@@ -12,5 +12,5 @@ Se implementaron las siguientes ramas para una gestión eficiente del desarrollo
 ## Uso de Contenedores
 La aplicación está configurada para ejecutarse en un contenedor Docker. Esto permite que el entorno sea fácilmente replicable y facilita su despliegue en diferentes máquinas. Para ejecutar el contenedor:
 ```bash
-docker build -t gestion-usuarios .
-docker run -p 8080:8080 gestion-usuarios
+docker build -t devops-app 
+docker run -p 8081:8080 gestion-usuarios
