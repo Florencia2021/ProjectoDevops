@@ -1,5 +1,8 @@
 pipeline {
     agent any
+     environment {
+        DOCKER_IMAGE = 'devops-app'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,19 +13,18 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image using the Dockerfile in the repository
-                    def app = docker.build("devops-app:latest", "-f Dockerfile .")
+		        sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Stop any running containers from previous builds
-                    sh 'docker stop devops-app || true && docker rm devops-app || true'
-                    
-                    // Run the Docker container
-                    app.run("-p 8081:8080 --name devops-app")
+		 sh '''
+                    docker ps -q -f name=${DOCKER_IMAGE} && docker stop ${DOCKER_IMAGE} || true
+                    docker ps -a -q -f name=${DOCKER_IMAGE} && docker rm ${DOCKER_IMAGE} || true
+                    docker run -d --name ${DOCKER_IMAGE} ${DOCKER_IMAGE}
+                    '''
                 }
             }
         }
