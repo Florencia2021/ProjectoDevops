@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Check out the code from version control
-                git 'https://github.com/Florencia2021/ProjectoDevops.git' // Replace with your repository URL
+                  git branch: 'main', url: 'https://github.com/Florencia2021/ProjectoDevops.git'// Replace with your repository URL
             }
         }
         stage('Build Docker Image') {
